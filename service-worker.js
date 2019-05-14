@@ -56,7 +56,9 @@ self.addEventListener('install', function(event) {
       .then(function(cache) {
         console.log('Opened cache');
         return cache.addAll(urlsToCache);
-      })
+      }).catch(function(err){
+		  console.warn("on install", err);
+	  })
   );
 });
 
@@ -95,7 +97,11 @@ self.addEventListener('fetch', function(event) {
 
             return response;
           }
-        );
-      })
+        ).catch(function(err){
+		  console.warn("on fetch", err);
+		});
+      }).catch(function(err){
+		  console.warn("on cache matches", err);
+	  })
     );
 });
